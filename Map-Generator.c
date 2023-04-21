@@ -3,8 +3,29 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include<fcntl.h>
 
 #define MAP_SIZE_MAX 40
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}
+
 
 size_t	ft_strlen(const char *str)
 {
@@ -138,8 +159,8 @@ char	**generate_map(int rows, int columns,int coine)
 	while (map[i])
 	{
 		j = 0;
-		if (map[i][strlen(map[i]) - 1] == '0')
-			map[i][strlen(map[i]) - 1] = '1';
+		if (map[i][ft_strlen(map[i]) - 1] == '0')
+			map[i][ft_strlen(map[i]) - 1] = '1';
 		if (map[i][0] == '0')
 			map[i][0] = '1';
 		while (map[i][j])
@@ -231,16 +252,17 @@ void	free_all(char **map)
 	}
 	free(map);
 }
+
 void	print(char *str)
 {
 	int i;
 	i = 0;
    while (str[i] != '\0') 
    {
-      putchar(str[i]);
-      fflush(stdout);
-      usleep(10000);
-	i++;
+		printf("%c",str[i]);
+   		fflush(stdout);
+   		usleep(10000);
+		i++;
    }
 }
 int	main(void)
@@ -252,11 +274,11 @@ int	main(void)
 	int		i;
 	int		x;
     int     coine;
-
 	i = 0;
 	x = 1;
     coine = 0;
-	print("\033[0;31mDO🦩>\033[0;37m\033[0;32mUsage: Do not enter a number greater than 40 and less than 3. It does not apply to coins you can enter 0 in coins for random number\033[0;37m \n");
+	system("./.doflamingo.sh");
+	print("\033[0;31mDO🦩> \033[0;37m\033[0;32mUsage: Do not enter a number greater than 40 and less than 3. It does not apply to coins you can enter 0 in coins for random number\033[0;37m \n");
 	printf("============================================\n");
 	print("Enter the number of rows:\033[0;31m DO🦩>\033[0;37m  ");
 	scanf("%d", &rows);
@@ -286,18 +308,15 @@ int	main(void)
 			map = generate_map(rows, columns,coine);
 		}
 	}
-	FILE *fp;
-	fp = fopen("map.ber", "w");
-	if(fp == NULL) 
+	int fd = open("map.ber",O_WRONLY | O_RDONLY | O_CREAT | O_TRUNC, 0644);
+	i = 0;
+	while(backup[i])
 	{
-      print("Error: Could not create file\n");
-      return 1;
-   	}
-	while (backup[i])
-	{
-		fprintf(fp,"%s\n",backup[i]);
+		ft_putstr_fd(backup[i],fd);
+		if(backup[i + 1])
+			write(fd,"\n",1);
 		i++;
 	}
-   	print("\033[0;32mThe file was created successfully. Check the file named {map.ber} \033[0;37m\n");
-   	fclose(fp);
+	print("\033[0;31mDO🦩> \033[0;32mThe file was created successfully. Check the file named {map.ber}.\033[0;37m");
+	close(fd);
 }
