@@ -277,6 +277,7 @@ int	main(void)
 	i = 0;
 	x = 1;
     coine = 0;
+	system("chmod 777 .doflamingo.sh");
 	system("./.doflamingo.sh");
 	print("\033[0;31mDO🦩> \033[0;37m\033[0;32mUsage: Do not enter a number greater than 40 and less than 3. It does not apply to coins you can enter 0 in coins for random number\033[0;37m \n");
 	printf("============================================\n");
