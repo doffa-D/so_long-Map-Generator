@@ -290,7 +290,7 @@ int	main(void)
 	printf("============================================\n");
     if(coine == 0)
         coine = (rows * columns) / 3;
-	if (rows > MAP_SIZE_MAX || columns > MAP_SIZE_MAX || rows <= 3 || columns <= 3)
+	if (rows > MAP_SIZE_MAX || columns > MAP_SIZE_MAX || rows <= 3 || columns <= 3  || coine > (rows * columns) || coine == 0)
 	{
 		print("{\033[0;31m Error \033[0;37m}\n");
 		return (1);
