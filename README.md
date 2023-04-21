@@ -7,7 +7,7 @@ This program generates a treasure map with random obstacles and coins. The gener
 
 1) Open a terminal and navigate to the directory where the program is located.
 
-2) Compile the program using a C compiler such as `gcc: gcc Map-Generator.c -o Map-Generator`
+2) Compile the program using a C compiler such as gcc: `gcc Map-Generator.c -o Map-Generator`
 
 3) Run the program: `./Map-Generator`
 
